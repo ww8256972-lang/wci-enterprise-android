@@ -1,0 +1,21 @@
+name: Security Scan
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify no web files / payment gateways
+        run: bash scripts/verify-no-web.sh
+
+      - name: Scan for TODO stubs
+        run: |
+          if grep -R "TODO" . --include=*.kt --include=*.cpp --include=*.ts 2>/dev/null | grep -q .; then
+            echo "TODO found"; exit 1
+          fi
+          echo "No TODO stubs"

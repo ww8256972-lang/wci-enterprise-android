@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.22.1)
+project(wci_sentinel LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fvisibility=hidden -ffunction-sections -fdata-sections")
+add_library(wci_sentinel SHARED sentinel.cpp rasp.cpp seccomp.cpp)
+target_link_libraries(wci_sentinel log dl)
