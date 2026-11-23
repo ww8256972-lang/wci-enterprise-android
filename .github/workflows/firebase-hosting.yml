@@ -1,0 +1,22 @@
+name: Firebase Hosting Deploy
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'public/**'
+      - 'firebase.json'
+      - '.firebaserc'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: waqar-computer-institute
